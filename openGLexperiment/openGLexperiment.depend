@@ -1,0 +1,87 @@
+# depslib dependency file v1.0
+1347747970 source:/home/brendant/openGlProj/codeblocks/openGLexperiment/main.cpp
+	<GL/freeglut.h>
+	<pthread.h>
+	<iostream>
+	"definitions.hpp"
+	"socketHelper.hpp"
+
+1347776953 /home/brendant/openGlProj/codeblocks/openGLexperiment/definitions.hpp
+
+1347822688 source:/home/brendant/openGlProj/codeblocks/openGLexperiment/definitions.cpp
+	<GL/freeglut.h>
+	<pthread.h>
+	<iostream>
+	"socketHelper.hpp"
+	"definitions.hpp"
+	<vector>
+	"objParser.hpp"
+	"socketHelper.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<errno.h>
+	<string.h>
+	<netdb.h>
+	<sys/types.h>
+	<netinet/in.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<netdb.h>
+	<sys/wait.h>
+	<signal.h>
+	"imageLoader.hpp"
+
+1347746348 /home/brendant/openGlProj/codeblocks/openGLexperiment/socketHelper.hpp
+
+1347747954 source:/home/brendant/openGlProj/codeblocks/openGLexperiment/socketHelper.cpp
+	"socketHelper.hpp"
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<errno.h>
+	<string.h>
+	<netdb.h>
+	<sys/types.h>
+	<netinet/in.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<netdb.h>
+	<sys/wait.h>
+	<signal.h>
+
+1347822207 source:/home/brendant/openGlProj/codeblocks/openGLexperiment/objParser.cpp
+	"objParser.hpp"
+	<vector>
+	<string>
+	<fstream>
+	<iostream>
+	<sstream>
+	<algorithm>
+	<iterator>
+	<sstream>
+	<OpenGL/OpenGL.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+
+1347775778 /home/brendant/openGlProj/codeblocks/openGLexperiment/objParser.hpp
+	<vector>
+	<string.h>
+	<fstream>
+	<OpenGL/OpenGL.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+
+1347776408 /home/brendant/openGlProj/codeblocks/openGLexperiment/imageLoader.hpp
+
+1347776426 source:/home/brendant/openGlProj/codeblocks/openGLexperiment/imageLoader.cpp
+	<assert.h>
+	<fstream>
+	"imageLoader.hpp"
+
