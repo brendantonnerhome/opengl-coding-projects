@@ -1,0 +1,22 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2006 Google, Inc.
+
+newmtl Concrete_Stamped_Ashlar
+Ka 0.000000 0.000000 0.000000
+Kd 0.501961 0.278431 0.258824
+Ks 0.330000 0.330000 0.330000
+map_Kd brick/Concrete_Stamped_Ashlar.jpg
+
+newmtl Asphalt_Stamped_Brick
+Ka 0.000000 0.000000 0.000000
+Kd 0.584314 0.521569 0.525490
+Ks 0.330000 0.330000 0.330000
+map_Kd brick/Asphalt_Stamped_Brick.jpg
+
+newmtl Concrete_Block_8x8_Gray
+Ka 0.000000 0.000000 0.000000
+Kd 0.615686 0.619608 0.603922
+Ks 0.330000 0.330000 0.330000
+map_Kd brick/Concrete_Block_8x8_Gray.jpg
+
