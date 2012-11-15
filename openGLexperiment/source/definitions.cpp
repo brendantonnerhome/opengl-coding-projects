@@ -213,7 +213,7 @@ void Display(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -20.0f);
+	glTranslatef(0.0f, 0.0f, -2.0f);
 
 	GLfloat ambientLight[] = {0.3f, 0.3f, 0.3f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
@@ -223,10 +223,10 @@ void Display(){
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor);
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
 
-	glRotatef(-_angle, 1.0f, 1.0f, 0.0f);
+	//glRotatef(-_angle, 1.0f, 1.0f, 0.0f);
 
 	glBegin(GL_QUADS);
-
+	glutSolidTeapot(1);
 	//Top face
 	glColor3f(1.0f, 1.0f, 0.0f);
 	glNormal3f(0.0, 1.0f, 0.0f);
@@ -413,15 +413,15 @@ void Display(){
 
 			//GLfloat lightPos0[] = {lightsX, lightsY, lightsZ, 1.0f};
 			//GL_POINTS(lightsX, lightsY, lightsZ);
-
-			GLfloat lightColor0[] = {0.7f, 0.7f, 0.7f, 1.0f};
-			glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
+			glutSolidTeapot(1);
+			//GLfloat lightColor0[] = {0.7f, 0.7f, 0.7f, 1.0f};
+			//glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0);
 
 			glScalef(.02,.02,.02);
-			vector<parsingData*>::iterator modelListI;
+			/*vector<parsingData*>::iterator modelListI;
 			for(modelListI = modelList.begin(); modelListI != modelList.end(); modelListI++){
 				renderModel(*modelListI);
-			}
+			}*/
 
 			//renderModel();
 			//glLightfv(GL_LIGHT0, GL_POSITION, lightPos0);
@@ -521,7 +521,7 @@ void update(int value) {
 void* glThreadMain(void* data) {
     cout << "launching the rendering thread" << endl;
     cout << "commenceing..." << endl;
-	loadModels(modelList);
+	//loadModels(modelList);
 	int argc=2;
 	char* tmpstr = "main";
 	char** argv={&tmpstr};// = {"main","2"};
@@ -533,8 +533,8 @@ void* glThreadMain(void* data) {
 	glutCreateWindow("Brendan Tonner - Brick Layer");
 	initRendering();
 
-	//glutDisplayFunc(Display);
-	glutDisplayFunc(DisplayBrick);
+	glutDisplayFunc(Display);
+	//glutDisplayFunc(DisplayBrick);
 	glutKeyboardFunc(onKeypress);
 	glutReshapeFunc(handleResize);
 	glutTimerFunc(25, update, 0);
