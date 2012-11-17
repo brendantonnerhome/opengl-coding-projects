@@ -1,5 +1,4 @@
-
-#include "objParser.hpp"
+#include "obj_parser.hpp"
 #include <vector>
 #include <string>
 #include <fstream>
@@ -9,43 +8,153 @@
 #include <iterator>
 #include <sstream>
 
+#include <time.h>
+ 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
 #include <GLUT/glut.h>
 #else
 #include <GL/glut.h>
 #endif
-
+ 
+unsigned int bCount=0;
 
 int renderModel(parsingData* data){
 	vector< vector<float> > triangles = data->getTriangleList();
 	vector< vector<float> > normals = data->getnormalsList();
 	vector< vector<float> >	vertices = data->getvirtextList();
 	vector< vector<float> > textCoords = data->getvTextureList();
+	static unsigned int startTime = time(NULL);
+	
+	//unsigned int currentTime = time(NULL) ;
+	//unsigned int tdiff = currentTime-startTime;
+	//cout << "tdiff=" << tdiff << endl;
+	//static unsigned int countA = triangles.size();
+	//unsigned int allowed = triangles.size() - countA;
 
-	for(unsigned int i=0;i<triangles.size();i++){
+	//countA = tdiff;
+
+	//if(allowed > triangles.size()){
+	//	countA = triangles.size();
+	//}
+	
+	//cout << "draw " << allowed << " triangles" << endl;
+
+	//if (allowed>=0){
+	//	allowed = 0;
+	//}
+
+	//for(unsigned int i=0;i<triangles.size();i++){
+	/*for(unsigned int i=0;i<data->finalTCount;i++){
 		glBegin(GL_TRIANGLES);
-		//format =
-		//f vertex index/ tex coord/ normal index  vertex index/ tex coord/ normal index  vertex index/ tex coord/ normal index
+		//format = 
+		//f vertex index/ tex coord/ normal index  vertex index/ tex coord/ normal index  vertex index/ tex coord/ normal index  
 		//			0			1			2			3			4			5			6			7			8
 		//set the normal face
-
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, _textureId);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		if(data->hasTex){
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, _textureId);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		}
 		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//glColor3f(1.0f, 1.0f, 1.0f);
+		
+		
+
 		glBegin(GL_QUADS);
-		glNormal3f(
-			normals.at((int)triangles.at(i).at(2)-1).at(0),
-			normals.at((int)triangles.at(i).at(2)-1).at(1),
-			normals.at((int)triangles.at(i).at(2)-1).at(2)
+		if(data->hasNormals){
+		//cout << normals[(int)triangles[i)[2)-1)[0)<< " " <<
+		//		normals[(int)triangles[i)[2)-1)[1)<< " " <<
+		//		normals[(int)triangles[i)[2)-1)[2)<< endl;
+			
+			glNormal3f(
+				normals[(int)data->glTriangle[i][2]-1][0],
+				normals[(int)data->glTriangle[i][2]-1][1],
+				normals[(int)data->glTriangle[i][2]-1][2]
+				);
+		}
+		//triangle 1
+		//vertices 0, 1, 2 -- vertices[triangles[i)[0)
+		
+		if(data->hasTex)
+			glTexCoord2f(textCoords[(int)triangles[i][0]-1][0], textCoords[(int)triangles[i][0]-1][1]);
+		glVertex3f(
+			data->glVirtexArray[(int)data->glTriangle[i][0]-1][0],
+			data->glVirtexArray[(int)data->glTriangle[i][0]-1][1],
+			data->glVirtexArray[(int)data->glTriangle[i][0]-1][2]
 			);
+		//triangle 2
+		//vertices 3,4,5
+		if(data->hasTex)
+			glTexCoord2f(textCoords[(int)triangles[i][3]-1][0], textCoords[(int)triangles[i][3]-1][1]);
+		glVertex3f(
+			data->glVirtexArray[(int)data->glTriangle[i][3]-1][0],
+			data->glVirtexArray[(int)data->glTriangle[i][3]-1][1],
+			data->glVirtexArray[(int)data->glTriangle[i][3]-1][2]
+			);
+		//triangle 3
+		//vertices 6,7,8
+		if(data->hasTex)
+			glTexCoord2f(textCoords[(int)triangles[i][6]-1][0], textCoords[(int)triangles[i][6]-1][1]);
+		//cout << (int)triangles[i][6]-1 << endl;
+		//cout << (int)triangles[i][6]-1 << endl;
+		//cout << (int)triangles[i][6]-1 << endl;
+		//cout << (int)triangles[i][6]-1)[0] << endl;
+		//cout << (int)triangles[i][6]-1)[0] << endl;
+		//cout << (int)triangles[i][6]-1)[0] << endl;
+		glVertex3f(
+			data->glVirtexArray[(int)data->glTriangle[i][6]-1][0],
+			data->glVirtexArray[(int)data->glTriangle[i][6]-1][1],
+			data->glVirtexArray[(int)data->glTriangle[i][6]-1][2]
+			);
+			//triangles[i)[0],triangles[i][0]
+		
+		glEnd();
+		glEnable(GL_TEXTURE_2D);
+	}
+
+	return 0;
+	*/
+	unsigned int upperB = triangles.size();
+	if(bCount == upperB){
+		bCount =0;
+	}
+	
+	for(unsigned int i=0;i<upperB - bCount;i++){
+		glBegin(GL_TRIANGLES);
+		//format = 
+		//f vertex index/ tex coord/ normal index  vertex index/ tex coord/ normal index  vertex index/ tex coord/ normal index  
+		//			0			1			2			3			4			5			6			7			8
+		//set the normal face
+		if(data->hasTex){
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, _textureId);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		}
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//glColor3f(1.0f, 1.0f, 1.0f);
+		
+		
+
+		glBegin(GL_QUADS);
+		if(data->hasNormals){
+		//cout << normals.at((int)triangles.at(i).at(2)-1).at(0)<< " " <<
+		//		normals.at((int)triangles.at(i).at(2)-1).at(1)<< " " <<
+		//		normals.at((int)triangles.at(i).at(2)-1).at(2)<< endl;
+			
+			glNormal3f(
+				normals.at((int)triangles.at(i).at(2)-1).at(0),
+				normals.at((int)triangles.at(i).at(2)-1).at(1),
+				normals.at((int)triangles.at(i).at(2)-1).at(2)
+				);
+		}
 		//triangle 1
 		//vertices 0, 1, 2 -- vertices.at(triangles.at(i).at(0)
-
-		glTexCoord2f(textCoords.at((int)triangles.at(i).at(0)-1).at(0), textCoords.at((int)triangles.at(i).at(0)-1).at(1));
+		
+		if(data->hasTex)
+			glTexCoord2f(textCoords.at((int)triangles.at(i).at(0)-1).at(0), textCoords.at((int)triangles.at(i).at(0)-1).at(1));
 		glVertex3f(
 			vertices.at((int)triangles.at(i).at(0)-1).at(0),
 			vertices.at((int)triangles.at(i).at(0)-1).at(1),
@@ -53,7 +162,8 @@ int renderModel(parsingData* data){
 			);
 		//triangle 2
 		//vertices 3,4,5
-		glTexCoord2f(textCoords.at((int)triangles.at(i).at(3)-1).at(0), textCoords.at((int)triangles.at(i).at(3)-1).at(1));
+		if(data->hasTex)
+			glTexCoord2f(textCoords.at((int)triangles.at(i).at(3)-1).at(0), textCoords.at((int)triangles.at(i).at(3)-1).at(1));
 		glVertex3f(
 			vertices.at((int)triangles.at(i).at(3)-1).at(0),
 			vertices.at((int)triangles.at(i).at(3)-1).at(1),
@@ -61,18 +171,25 @@ int renderModel(parsingData* data){
 			);
 		//triangle 3
 		//vertices 6,7,8
-		glTexCoord2f(textCoords.at((int)triangles.at(i).at(6)-1).at(0), textCoords.at((int)triangles.at(i).at(6)-1).at(1));
+		if(data->hasTex)
+			glTexCoord2f(textCoords.at((int)triangles.at(i).at(6)-1).at(0), textCoords.at((int)triangles.at(i).at(6)-1).at(1));
+		//cout << (int)triangles.at(i).at(6)-1 << endl;
+		//cout << (int)triangles.at(i).at(6)-1 << endl;
+		//cout << (int)triangles.at(i).at(6)-1 << endl;
+		//cout << (int)triangles.at(i).at(6)-1).at(0) << endl;
+		//cout << (int)triangles.at(i).at(6)-1).at(0) << endl;
+		//cout << (int)triangles.at(i).at(6)-1).at(0) << endl;
 		glVertex3f(
 			vertices.at((int)triangles.at(i).at(6)-1).at(0),
 			vertices.at((int)triangles.at(i).at(6)-1).at(1),
 			vertices.at((int)triangles.at(i).at(6)-1).at(2)
 			);
 			//triangles.at(i).at(0),triangles.at(i).at(0)
-
+		
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 	}
-
+	
 	return 0;
 }
 
@@ -129,15 +246,10 @@ int castFloat(vector<string>& tokenV, vector<float>& floatsV){
 	else return -1;
 }
 
-//int parsingData::parseMTLLib(string& inString, vector<string>& texturesList){
- //   return 0;
-//}
-//using namespace std;
-int parsingData::parseMTLLib(const string& inString, vector<string>& texturesList){
+int parsingData::parseMTLLib(string& inString, vector<string>& texturesList){
 	fstream mtlstr;
 	string lineBuffer;
-	//mtlstr.open(inString,fstream::in | fstream::app);
-	mtlstr.open(inString.c_str(),fstream::in | fstream::app);
+	mtlstr.open(inString,fstream::in | fstream::app);
 	//vector<material> matList;
 	if(mtlstr.good()){
 		cout << "parsing " << "\"" << inString << "\"" << "... " << endl;
@@ -150,7 +262,7 @@ int parsingData::parseMTLLib(const string& inString, vector<string>& texturesLis
 				vector<float> fpktokens;
 				split(lineBuffer, ' ', ktokens);
 				castFloat(ktokens,fpktokens);
-
+				
 				if(lineBuffer.at(0) == 'K' && lineBuffer.at(1) == 'd'){
 					currentmtl.kd = fpktokens;
 				}
@@ -200,14 +312,44 @@ int parsingData::findTexIndex(string materialName){
 	return -1;
 }
 
-//parsingData::parsingData(string inString){
-//}
-
-
 parsingData::parsingData(string inString){
-	cout << inString << endl;
+	this->hasNormals = false;
+	this->hasTex = false;
 	this->indexCount = 0;
 	int currentIndex = 0;
+	
+	//init some arrays for testing...
+	int countV = 0;
+	finalTCount = 0;
+	this->glTriangle = new float*[1024];
+	for(unsigned int i=0;i<1024;i++){
+		float *tmp = new float[9];
+		for(unsigned int k=0;k<9;k++){
+			tmp[k] = 0;
+			countV++;
+		}
+		glTriangle[i] = tmp;
+	}
+	unsigned int currentT = 0;
+
+	this->glVirtexArray = new float*[4096];
+	for(unsigned int i=0;i<4096;i++){
+		float *tmp = new float[3];
+		for(unsigned int k=0;k<3;k++){
+			tmp[k] = 0;
+			//countV++;
+		}
+		glVirtexArray[i] = tmp;
+	}
+	this->totalVirtexCount = 0;
+	/*
+	for(unsigned int i=0;i<1024;i++){
+		for(unsigned int k=0;k<9;k++){
+			cout << glTriangle[i][k] << " " ;
+		}
+		cout << endl;
+	}
+	*/
 	if(!inString.empty()){
 		vector<string> tokensTemp;
 		split(inString,'/',tokensTemp);
@@ -272,29 +414,56 @@ parsingData::parsingData(string inString){
 				}
 				else if(lineBuffer.at(0) == 'v'){
 					if(lineBuffer.at(1) == 'n'){
+						this->hasNormals = true;
 						//cout << "\t\tvirtext normal line" << endl;
 						this->normalsList.push_back(fpTokens);
 					}else if(lineBuffer.at(1) == 't'){
+						this->hasTex = true;
 						//cout << "\t\tvirtext texture line" << endl;
 						this->vTextureList.push_back(fpTokens);
 					}
 					else{
 						//cout << "\t\tvertex line" << endl;
+						
+						vector< float >::iterator iT;
+						unsigned int vListCount = 0;
+						for(iT=fpTokens.begin();iT!=fpTokens.end();iT++){
+							glVirtexArray[this->totalVirtexCount][vListCount]=*iT;
+							vListCount++;
+							if(vListCount==2){
+								goto hereV;
+							}
+						}
+						hereV:
+						this->totalVirtexCount++;
 						this->virtextList.push_back(fpTokens);
 					}
-				}else if(lineBuffer.at(0) == 'f'){
-
+				}else if(lineBuffer.at(0) == 'f'){ 
+					
 					faceTokens.clear();
 					facefpTokens.clear();
 					for(currentTokensI = currentTokens.begin(); currentTokensI != currentTokens.end(); currentTokensI++){
 						if(*currentTokensI == "f") continue;
 						else{
 							split(*currentTokensI,'/',faceTokens);
-
+							
 						}
 					}
 					castFloat(faceTokens,facefpTokens);
 					facefpTokens.push_back((float)currentIndex);
+					vector< float >::iterator iT;
+					unsigned int tListCount = 0;
+					for(iT=facefpTokens.begin();iT!=facefpTokens.end();iT++){
+						glTriangle[currentT][tListCount]=*iT;
+						cout << *iT << " ";
+						tListCount++;
+						if(tListCount==8){
+							goto here;
+						}
+					}
+					here:
+					currentT++;
+					cout << endl;
 					triangleList.push_back(facefpTokens);
 					//cout << "\t\tface line" << endl;
 				}else if(lineBuffer.at(0) == 'g'){
@@ -308,11 +477,20 @@ parsingData::parsingData(string inString){
 			}
 
 		}
-
+		cout << "done reading" << endl;
 	}
+		
 	else {
 		cout << "error reading file!" << endl;
 	}
+	cout << "printing current triangle state" << endl;
+	for(unsigned int i=0;i<currentT;i++){
+		for(unsigned int k=0;k<9;k++){
+			cout << glTriangle[i][k] << " " ;
+		}
+		cout << endl;
+	}
+	finalTCount = currentT;
 	filestr.close();
 }
 
