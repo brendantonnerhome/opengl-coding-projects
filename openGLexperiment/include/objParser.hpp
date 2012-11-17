@@ -1,4 +1,3 @@
-
 #include <vector>
 #include <string.h>
 #include <fstream>
@@ -11,8 +10,8 @@
 using namespace std;
 
 extern GLuint _textureId;
-
-
+extern unsigned int bCount;
+ 
 class material{
 public:
 	material(string nameI){
@@ -38,18 +37,28 @@ public:
 	parsingData(string input);
 	~parsingData();
 	vector< vector<float> > getTriangleList(void);
+	
 	vector< vector<float> > getvTextureList(void);
 	vector< vector<float> > getvirtextList(void);
 	vector< vector<float> > getnormalsList(void);
+	bool hasNormals;
+	bool hasTex;
+
+	unsigned int finalTCount;
+	float** glTriangle;
+
+	unsigned int totalVirtexCount;
+	float** glVirtexArray;
 
 private:
+	
 	parsingData();
 
 	//prevent calling these unintentionally
 	parsingData(const parsingData& X);
 	parsingData & operator=(const parsingData &rhs);
 
-	int parseMTLLib(const string& inString,vector<string>& texturesList);
+	int parseMTLLib(string& inString,vector<string>& texturesList);
 	int findTexIndex(string materialName);
 
 	int indexCount;
@@ -59,6 +68,8 @@ private:
 
 	//file parsing data
 	vector< vector<float> > triangleList;
+	
+
 	vector< vector<float> > vTextureList;
 	vector< vector<float> > virtextList;
 	vector< vector<float> > normalsList;
