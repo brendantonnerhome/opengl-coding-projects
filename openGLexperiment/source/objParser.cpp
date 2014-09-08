@@ -1,4 +1,4 @@
-#include "obj_parser.hpp"
+#include "objParser.hpp"
 #include <vector>
 #include <string>
 #include <fstream>
@@ -249,7 +249,10 @@ int castFloat(vector<string>& tokenV, vector<float>& floatsV){
 int parsingData::parseMTLLib(string& inString, vector<string>& texturesList){
 	fstream mtlstr;
 	string lineBuffer;
-	mtlstr.open(inString,fstream::in | fstream::app);
+	//string dummy = inString;
+	//std::string dummy("abcd");// = "abcd";
+	mtlstr.open(inString.c_str(),fstream::in | fstream::app);
+	//mtlstr.open(dummy);
 	//vector<material> matList;
 	if(mtlstr.good()){
 		cout << "parsing " << "\"" << inString << "\"" << "... " << endl;
@@ -396,7 +399,9 @@ parsingData::parsingData(string inString){
 					cout << "texture library" << endl;
 					vector<string> textTokens;
 					split(lineBuffer,' ',textTokens);
-					parseMTLLib(this->relativePath + textTokens.at(1),texturesList);
+					//parseMTLLib(this->relativePath + textTokens.at(1),texturesList);
+					string dummy = this->relativePath + textTokens.at(1);
+					parseMTLLib(dummy,texturesList);
 					cout << lineBuffer;
 				}else if(lineBuffer=="/r"){
 
