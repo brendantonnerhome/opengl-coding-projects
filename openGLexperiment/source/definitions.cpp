@@ -82,7 +82,8 @@ vector<parsingData*> loadModels(vector<parsingData*>& models){
 	//parsingData* parseFile1 = new parsingData("modelData/models/boringBox.obj");
 //	models.push_back(parseFile1);
 
-	parsingData* parseFile2 = new parsingData("modelData/models/boringBox.obj");
+	//parsingData* parseFile2 = new parsingData("modelData/models/boringBox.obj");
+	parsingData* parseFile2 = new parsingData("modelData/models/simple.obj");
 	//parsingData* parseFile2 = new parsingData("modelData/models/brick.obj");
 	models.push_back(parseFile2);
 	//return 0;
@@ -128,7 +129,11 @@ void DisplayBrick(){
 
 	glRotatef(-_angle, 1.0f, 1.0f, 0.0f);
 	vector<parsingData*>::iterator modelListI;
+	//cout << "# models " <<modelList.size() << endl;
+	
 	for(modelListI = modelList.begin(); modelListI != modelList.end(); modelListI++){
+		dbgModel(*modelListI);
+		
 		renderModel(*modelListI);
 	}
 	glBegin(GL_QUADS);
@@ -521,20 +526,20 @@ void update(int value) {
 void* glThreadMain(void* data) {
     cout << "launching the rendering thread" << endl;
     cout << "commenceing..." << endl;
-	//loadModels(modelList);
+	loadModels(modelList);
 	int argc=2;
 	char* tmpstr = "main";
 	char** argv={&tmpstr};// = {"main","2"};
 	//glutInit(&argc, argv);
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(400, 400);
+	glutInitWindowSize(1920, 1080);
 
 	glutCreateWindow("Brendan Tonner - Brick Layer");
 	initRendering();
 
-	glutDisplayFunc(Display);
-	//glutDisplayFunc(DisplayBrick);
+	//glutDisplayFunc(Display);
+	glutDisplayFunc(DisplayBrick);
 	glutKeyboardFunc(onKeypress);
 	glutReshapeFunc(handleResize);
 	glutTimerFunc(25, update, 0);

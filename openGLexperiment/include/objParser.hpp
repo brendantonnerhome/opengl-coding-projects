@@ -78,3 +78,4 @@ private:
 
 
 int renderModel(parsingData*);
+int dbgModel(parsingData*);

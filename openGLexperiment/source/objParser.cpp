@@ -18,8 +18,14 @@
 #endif
  
 unsigned int bCount=0;
-
+int dbgModel(parsingData* data){
+	//cout << "model debug function "<< endl;
+	
+	//cout << data->totalVirtexCount << " virtex" << endl;
+	return -1;
+}
 int renderModel(parsingData* data){
+	
 	vector< vector<float> > triangles = data->getTriangleList();
 	vector< vector<float> > normals = data->getnormalsList();
 	vector< vector<float> >	vertices = data->getvirtextList();
@@ -117,11 +123,75 @@ int renderModel(parsingData* data){
 	return 0;
 	*/
 	unsigned int upperB = triangles.size();
+	//cout << "upperb " << upperB << endl;
 	if(bCount == upperB){
 		bCount =0;
 	}
 	
-	for(unsigned int i=0;i<upperB - bCount;i++){
+	//for(unsigned int i=0;i<upperB - bCount;i++){
+	
+	static bool once = false;
+	if (once==false) {
+		cout << "========================" << endl;
+		once = true;
+		for(int i=0;i<vertices.size();i++){
+			for(int j=0;j<vertices.at(i).size();j++){
+				cout << vertices.at(i).at(j) << " ";
+			}
+			cout << endl;
+		}
+		cout << "========================" << endl;
+		for(int i=0;i<triangles.size();i++){
+			for(int j=0;j<triangles.at(i).size();j++){
+				cout << triangles.at(i).at(j) << " ";
+			}
+			cout << endl;
+		}
+		cout << "vertices: " << vertices.size() <<endl;;
+		cout << "vertices 0: " << vertices.at(0).size() <<endl;;
+		cout << "vertices 1: " << vertices.at(1).size() <<endl;;
+		cout << "vertices 2: " << vertices.at(2).size() <<endl;;
+		cout << "vertices 3: " << vertices.at(3).size() <<endl;;
+		cout << "triangles: " << triangles.size() <<endl;
+		cout << "========================" << endl;
+	}
+	glBegin(GL_TRIANGLES);
+		glVertex3f(
+			vertices.at((int)triangles.at(0).at(0)-1).at(0),
+			vertices.at((int)triangles.at(0).at(0)-1).at(1),
+			vertices.at((int)triangles.at(0).at(0)-1).at(2)
+		);
+		glVertex3f(
+			vertices.at((int)triangles.at(0).at(1)-1).at(0),
+			vertices.at((int)triangles.at(0).at(1)-1).at(1),
+			vertices.at((int)triangles.at(0).at(1)-1).at(2)
+		);
+		glVertex3f(
+			vertices.at((int)triangles.at(0).at(2)-1).at(0),
+			vertices.at((int)triangles.at(0).at(2)-1).at(1),
+			vertices.at((int)triangles.at(0).at(2)-1).at(2)
+		);
+		
+		glVertex3f(
+			vertices.at((int)triangles.at(1).at(0)-1).at(0),
+			vertices.at((int)triangles.at(1).at(0)-1).at(1),
+			vertices.at((int)triangles.at(1).at(0)-1).at(2)
+		);
+		glVertex3f(
+			vertices.at((int)triangles.at(1).at(1)-1).at(0),
+			vertices.at((int)triangles.at(1).at(1)-1).at(1),
+			vertices.at((int)triangles.at(1).at(1)-1).at(2)
+		);
+		glVertex3f(
+			vertices.at((int)triangles.at(1).at(2)-1).at(0),
+			vertices.at((int)triangles.at(1).at(2)-1).at(1),
+			vertices.at((int)triangles.at(1).at(2)-1).at(2)
+		);
+	
+	glEnd();
+	return 0;
+	for(unsigned int i=0;i<1;i++){
+		
 		glBegin(GL_TRIANGLES);
 		//format = 
 		//f vertex index/ tex coord/ normal index  vertex index/ tex coord/ normal index  vertex index/ tex coord/ normal index  
@@ -132,13 +202,15 @@ int renderModel(parsingData* data){
 			glBindTexture(GL_TEXTURE_2D, _textureId);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		}
+		
 		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//glColor3f(1.0f, 1.0f, 1.0f);
 		
 		
 
-		glBegin(GL_QUADS);
+		glBegin(GL_TRIANGLES);
+		
 		if(data->hasNormals){
 		//cout << normals.at((int)triangles.at(i).at(2)-1).at(0)<< " " <<
 		//		normals.at((int)triangles.at(i).at(2)-1).at(1)<< " " <<
@@ -173,6 +245,7 @@ int renderModel(parsingData* data){
 		//vertices 6,7,8
 		if(data->hasTex)
 			glTexCoord2f(textCoords.at((int)triangles.at(i).at(6)-1).at(0), textCoords.at((int)triangles.at(i).at(6)-1).at(1));
+			
 		//cout << (int)triangles.at(i).at(6)-1 << endl;
 		//cout << (int)triangles.at(i).at(6)-1 << endl;
 		//cout << (int)triangles.at(i).at(6)-1 << endl;
