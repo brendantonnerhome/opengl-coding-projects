@@ -2,9 +2,9 @@
 #include <pthread.h>
 #include <iostream>
 
-#include "definitions.hpp"
+#include "../include/definitions.hpp"
 
-#include "socketHelper.hpp"
+#include "../include/socketHelper.hpp"
 
 using namespace std;
 

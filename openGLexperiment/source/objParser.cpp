@@ -1,4 +1,4 @@
-#include "objParser.hpp"
+#include "../include/objParser.hpp"
 #include <vector>
 #include <string>
 #include <fstream>

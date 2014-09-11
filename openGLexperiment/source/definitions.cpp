@@ -1,10 +1,10 @@
 #include <GL/freeglut.h>
 #include <pthread.h>
 #include <iostream>
-#include "socketHelper.hpp"
-#include "definitions.hpp"
+#include "../include/socketHelper.hpp"
+#include "../include/definitions.hpp"
 #include <vector>
-#include "objParser.hpp"
+#include "../include/objParser.hpp"
 
 //#include "socketHelper.hpp"
 #include <stdio.h>
@@ -25,7 +25,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 
-#include "imageLoader.hpp"
+#include "../include/imageLoader.hpp"
 
 using namespace std;
 

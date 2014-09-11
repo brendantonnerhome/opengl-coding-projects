@@ -26,7 +26,7 @@
 #include <assert.h>
 #include <fstream>
 
-#include "imageLoader.hpp"
+#include "../include/imageLoader.hpp"
 
 using namespace std;
 
